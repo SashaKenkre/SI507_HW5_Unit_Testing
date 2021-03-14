@@ -1,3 +1,9 @@
+#########################################
+##### Name: Sasha Kenkre            #####
+##### Uniqname: skenkre             #####
+#########################################
+
+
 import unittest
 import hw5_cards
 
@@ -52,7 +58,7 @@ class TestCard(unittest.TestCase):
         '''
         card2 = hw5_cards.Card(1, 2)
         self.assertEqual(card2.suit_name, "Clubs")
-        return card2.suit, "Clubs"
+        return card2.suit_name, "Clubs"
 
 
     def test_q3(self):
@@ -68,8 +74,8 @@ class TestCard(unittest.TestCase):
 
         '''
         card3 = hw5_cards.Card(3, 13)
-        self.assertEqual(str(card3), "King of Spades")
-        return str(card3), "King of Spades"
+        self.assertEqual(card3.__str__(), "King of Spades")
+        return card3.__str__(), "King of Spades"
 
     def test_q4(self):
         '''
@@ -100,9 +106,8 @@ class TestCard(unittest.TestCase):
 
         '''
         d = hw5_cards.Deck()
-        c = hw5_cards.Card(0,1)
-        self.assertEqual(type(d.deal_card()), type(c))
-        return type(d.deal_card), type(c)
+        self.assertIsInstance(d.deal_card(),  hw5_cards.Card)
+        return d.deal_card(), hw5_cards.Card
 
     def test_q6(self):
         '''
@@ -121,7 +126,7 @@ class TestCard(unittest.TestCase):
         d.deal_card(i=-1)
         self.assertEqual(len(d.cards), 51)
         return len(d.cards), 51
-    
+
 
     def test_q7(self):
         '''
@@ -136,10 +141,13 @@ class TestCard(unittest.TestCase):
 
         '''
         d = hw5_cards.Deck()
-        card = d.deal_card(i=-1)
+        orig_len = len(d.cards)
+        card = d.deal_card()
+        rem_len = len(d.cards)
         d.replace_card(card)
-        self.assertEqual(len(d.cards), 52)
-        return len(d.cards), 52
+        rep_len = len(d.cards)
+        self.assertEqual(orig_len, rem_len + 1, rep_len)
+        return orig_len, rem_len + 1, rep_len
 
     def test_q8(self):
         '''
